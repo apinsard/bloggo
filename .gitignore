@@ -1,0 +1,12 @@
+*.py[co]
+*.sw[po]
+*~
+*.log
+*.mo
+
+/secrets.json
+/media/
+/tmp/
+/.sass-cache/
+
+db.sqlite3
