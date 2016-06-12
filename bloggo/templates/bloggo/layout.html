@@ -13,15 +13,28 @@
     {% block body %}
       <div class="container-fluid">
         <header id="page-header">
-          <div class="site-name">Automated Programming</div>
-          <div class="site-moto">Automate your life as a programmer</div>
+          <div class="site-name">{{ site_name|default:"Bloggo" }}</div>
+          {% if site_tagline %}<div class="site-tagline">{{ site_tagline }}</div>{% endif %}
         </header>
         <div class="row">
           <main id="page-main" class="col-lg-8 col-xl-8">
             {% block main %}{% endblock %}
           </main>
           <aside id="page-aside" class="col-lg-4 col-xl-4">
-            {% block aside %}{% endblock %}
+            {% block aside %}
+              <section id="aside-user">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-lg-12">
+                    <img id="aside-user-picture" src="{{ aside_user.picture.url }}" alt="{{ aside_user.get_short_name }}"class="img-circle">
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-lg-12">
+                    <b class="h3">{{ aside_user.get_short_name }}</b>
+                    {% if aside_user.short_description %}<br><i>{{ aside_user.short_description }}</i>{% endif %}
+                    {% if aside_user.website %}<br>{{ aside_user.get_website_link }}{% endif %}
+                  </div>
+                </div>
+              </section>
+            {% endblock %}
           </aside>
         </div>
       </div>

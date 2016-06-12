@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from datetime import date
+
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
@@ -131,6 +133,14 @@ class User(AbstractBaseUser, PermissionsMixin):
         website_name = self.website_name or self.website
         return format_html('<a{}>{}</a>', flatatt(attrs), website_name)
     get_website_link.short_description = _("website")
+
+    def get_age(self):
+        bday = self.birth_date
+        if not bday:
+            return None
+        today = date.today()
+        return today.year - bday.year - (
+            (today.month, today.day) < (bday.month, bday.day))
 
 
 class Tag(models.Model):

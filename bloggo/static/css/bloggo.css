@@ -28,6 +28,15 @@ h1 {
   padding-bottom: 20px;
 }
 
+#aside-user {
+  text-align: center;
+}
+
+#aside-user-picture {
+  width: 100%;
+  max-width: 150px;
+}
+
 @media(min-width: 992px) {
   #page-aside {
     border-left: 1px solid #bababa;
