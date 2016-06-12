@@ -6,8 +6,10 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.forms.utils import flatatt
 from django.utils import timezone
 from django.utils.formats import date_format
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -118,6 +120,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.display_name or self.get_full_name() or _("Anonymous")
+    get_short_name.short_description = _("display name")
+
+    def get_website_link(self, attrs=None):
+        if not self.website:
+            return None
+        if attrs is None:
+            attrs = {'target': '_blank'}
+        attrs['href'] = self.website
+        website_name = self.website_name or self.website
+        return format_html('<a{}>{}</a>', flatatt(attrs), website_name)
+    get_website_link.short_description = _("website")
 
 
 class Tag(models.Model):
