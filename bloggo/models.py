@@ -104,6 +104,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=True,
         verbose_name=_("short description"),
     )
+    bragging_rights = models.TextField(
+        blank=True,
+        verbose_name=_("bragging rights"),
+    )
     website = models.URLField(
         blank=True,
         verbose_name=_("website"),
@@ -203,6 +207,10 @@ class Article(models.Model):
     update_date = models.DateTimeField(
         blank=True, null=True,
         verbose_name=_("is_online")
+    )
+    update_summary = models.TextField(
+        blank=True,
+        verbose_name=_("update summary"),
     )
     is_online = models.BooleanField(
         default=False,

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
-from django.views.generic import ListView
+from django.views.generic import (
+    ListView,
+    TemplateView as BaseTemplateView,
+)
 
 from .models import User, Article
 
@@ -16,6 +19,10 @@ class BloggoMixin:
 
     def get_aside_user(self):
         return User.objects.filter(is_superuser=True).order_by('id').first()
+
+
+class TemplateView(BloggoMixin, BaseTemplateView):
+    pass
 
 
 class Home(BloggoMixin, ListView):
